@@ -1,5 +1,5 @@
 package com.model;
 
-public class test {
+interface Interfata {
 
 }

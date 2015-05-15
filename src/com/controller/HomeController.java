@@ -13,7 +13,7 @@ public class HomeController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView metoda() {
 		
-		ModelAndView model=new ModelAndView("blabla");
+		ModelAndView model=new ModelAndView("home");
 	    System.out.println("Sunt aici");
 	    return model;
 		//return new ModelAndView("home", "courts", courtService.findAll());

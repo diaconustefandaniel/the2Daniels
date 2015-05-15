@@ -25,6 +25,8 @@
 <mvc:annotation-driven />
 	<context:component-scan base-package="com.controller" />
 
+	<mvc:resources location="/css/" mapping="/css/**" />
+
 
 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="oracle.jdbc.driver.OracleDriver"
@@ -32,7 +34,29 @@
 		p:username="stefan"
 		p:password="stefan"
 	/>
-	<!-- jdbc:hsqldb:hsql://localhost/daniel -->
+	
+	
+	<!-- Hibernate session factory -->
+		<bean id="sessionFactory"
+			class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+		    <props>
+			<prop key="hibernate.dialect">
+                           org.hibernate.dialect.MySQL5Dialect
+                        </prop>
+			<prop key="hibernate.format_sql">true</prop>
+			<prop key="hibernate.show_sql">true</prop>
+		    </props>
+		</property>
+	</bean>	
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	
 	
 	<!-- 
 		LocalContainerEntityManagerFactoryBean is used to obtain EntityManagerFactory. This is one of the 3 ways
@@ -40,7 +64,7 @@
 			- LocalEntityManagerFactoryBean (not for production environments)
 			- JNDI
 	 -->
-	 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+<!-- 	 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 	 	<property name="dataSource" ref="dataSource" />
 	 	<property name="packagesToScan" value="com.model" />
 	 	<property name="jpaVendorAdapter">
@@ -54,9 +78,9 @@
 			</props>
 		</property>
 		
-	 </bean>
+	 </bean> -->
 
-<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" /> 
+<!-- <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />  -->
 
 </beans>		
 
